@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <!-- Header with the title of the page -->
+    <h2 class="text-center">Receipt List</h2>
+    <!-- List to display receipts -->
+    <ul class="list-group">
+      {% for receipt in receipts %}
+        <!-- List item for each receipt -->
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-8">
+              <!-- Receipt store name with a link to its detail page -->
+              <h1><a href="{% url 'receipt_detail' receipt.pk %}">{{ receipt.store_name }}</a></h1>
+              <!-- Store name and date of purchase -->
+              <p><strong>{{ receipt.store_name }}</strong> - {{ receipt.date_of_purchase }}</p>
+            </div>
+            <div class="col-md-4 text-right">
+              <!-- View and Edit buttons with links -->
+              <a href="{% url 'receipt_detail' receipt.id %}" class="btn btn-info btn-sm">View</a>
+              <a href="{% url 'receipt_edit' receipt.id %}" class="btn btn-warning btn-sm">Edit</a>
+              
+              <!-- Delete form -->
+              <form method="post" action="{% url 'receipt_delete' receipt.id %}" style="display: inline;">
+                {% csrf_token %}
+                <!-- Delete button triggers the form submission -->
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    <!-- Button to add a new receipt -->
+    <a href="{% url 'receipt_new' %}" class="btn btn-success btn-centre" >Add New Receipt</a>
+  </div>
+{% endblock %}

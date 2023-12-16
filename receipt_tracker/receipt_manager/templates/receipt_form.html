@@ -1,0 +1,54 @@
+<!-- receipt_manager/templates/receipt_manager/receipt_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <!-- Form title indicating whether it's for editing or creating a new receipt -->
+    <h2 class="text-center">{% if form.instance.pk %}Edit Receipt{% else %}New Receipt{% endif %}</h2>
+    
+    <!-- Form for submitting or editing a receipt -->
+    <form method="post" action="{% url 'receipt_new' %}" class="form-horizontal">
+      {% csrf_token %}
+      
+      <!-- Form field for the store name -->
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="id_store_name">Store Name:</label>
+        <div class="col-sm-10">
+          {{ form.store_name }}
+        </div>
+      </div>
+
+      <!-- Form field for the date of purchase -->
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="id_date_of_purchase">Date of Purchase:</label>
+        <div class="col-sm-10">
+          {{ form.date_of_purchase }}
+        </div>
+      </div>
+
+      <!-- Form field for the item list -->
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="id_item_list">Item List:</label>
+        <div class="col-sm-10">
+          {{ form.item_list }}
+        </div>
+      </div>
+
+      <!-- Form field for the total amount -->
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="id_total_amount">Total Amount:</label>
+        <div class="col-sm-10">
+          {{ form.total_amount }}
+        </div>
+      </div>
+
+      <!-- Form submission and cancel buttons -->
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a href="{% url 'receipt_list' %}" class="btn btn-default">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

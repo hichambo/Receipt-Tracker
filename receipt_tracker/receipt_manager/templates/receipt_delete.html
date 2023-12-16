@@ -1,0 +1,25 @@
+<!-- receipt_manager/templates/receipt_manager/receipt_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Delete Receipt{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <!-- Header indicating that this is the receipt deletion page -->
+    <h2 class="text-center">Delete Receipt</h2>
+    
+    <!-- Message asking for confirmation to delete the receipt -->
+    <p>Are you sure you want to delete this receipt?</p>
+    
+    <!-- Form for submitting the delete action -->
+    <form method="post" action="{% url 'receipt_delete' receipt.id %}">
+      {% csrf_token %}
+      
+      <!-- Button to confirm deletion -->
+      <button type="submit" class="btn btn-danger">Delete</button>
+      
+      <!-- Button to cancel and go back to the Receipt List -->
+      <a href="{% url 'receipt_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
